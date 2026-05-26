@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Suite — Tool Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white:    #FFFFFF;
+      --teal:     #9EF8EC;
+      --teal2:    #5AE9D7;
+      --offwhite: #F7F9FC;
+      --slate:    #9197AE;
+      --ink:      #2c2f3a;
+      --dark:     #022B6D;
+      --dark2:    #131F4A;
+      --orange:   #FF7958;
+      --rule:     #e3e6ee;
+      --green:    #2d7a6a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--offwhite);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 40px;
+      gap: 0;
+    }
+
+    /* ── Header ── */
+    .badge-eyebrow {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(158,248,236,0.18);
+      color: var(--green);
+      border: 1px solid rgba(158,248,236,0.5);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--slate);
+      margin-bottom: 72px;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 420px;
+    }
+
+    /* ── Card stack scene ── */
+    .scene {
+      position: relative;
+      width: 880px;
+      height: 310px;
+    }
+
+    .card-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 290px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--rule);
+      box-shadow: -8px 10px 28px rgba(2,43,109,0.09);
+      padding: 26px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: pointer;
+      transition:
+        transform 0.48s cubic-bezier(0.34, 1.2, 0.64, 1),
+        box-shadow 0.28s ease;
+      will-change: transform;
+      overflow: hidden;
+    }
+
+    /* Teal top accent — shows on individual hover when spread */
+    .card-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 20px; right: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--teal2));
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    /* ──────────────────────────────
+       STACKED STATE (default)
+    ────────────────────────────── */
+    .card-item:nth-child(1) {
+      transform: translateX(340px) translateY(-12px) rotate(-7deg);
+      z-index: 4;
+    }
+    .card-item:nth-child(2) {
+      transform: translateX(336px) translateY(-5px) rotate(-3.5deg);
+      z-index: 3;
+    }
+    .card-item:nth-child(3) {
+      transform: translateX(332px) translateY(0px) rotate(1deg);
+      z-index: 2;
+    }
+    .card-item:nth-child(4) {
+      transform: translateX(328px) translateY(7px) rotate(5deg);
+      z-index: 1;
+    }
+
+    /* Stagger delays for cascading spread */
+    .scene:hover .card-item:nth-child(1) { transition-delay: 0ms; }
+    .scene:hover .card-item:nth-child(2) { transition-delay: 45ms; }
+    .scene:hover .card-item:nth-child(3) { transition-delay: 90ms; }
+    .scene:hover .card-item:nth-child(4) { transition-delay: 135ms; }
+
+    /* ──────────────────────────────
+       SPREAD STATE (on hover)
+    ────────────────────────────── */
+    .scene:hover .card-item:nth-child(1) {
+      transform: translateX(0px) translateY(0px) rotate(0deg);
+    }
+    .scene:hover .card-item:nth-child(2) {
+      transform: translateX(227px) translateY(0px) rotate(0deg);
+    }
+    .scene:hover .card-item:nth-child(3) {
+      transform: translateX(454px) translateY(0px) rotate(0deg);
+    }
+    .scene:hover .card-item:nth-child(4) {
+      transform: translateX(681px) translateY(0px) rotate(0deg);
+    }
+
+    /* Lift + accent on individual card hover when spread */
+    .scene:hover .card-item:nth-child(1):hover {
+      transform: translateX(0px) translateY(-10px) rotate(0deg);
+      box-shadow: -10px 18px 40px rgba(2,43,109,0.14);
+    }
+    .scene:hover .card-item:nth-child(2):hover {
+      transform: translateX(227px) translateY(-10px) rotate(0deg);
+      box-shadow: -10px 18px 40px rgba(2,43,109,0.14);
+    }
+    .scene:hover .card-item:nth-child(3):hover {
+      transform: translateX(454px) translateY(-10px) rotate(0deg);
+      box-shadow: -10px 18px 40px rgba(2,43,109,0.14);
+    }
+    .scene:hover .card-item:nth-child(4):hover {
+      transform: translateX(681px) translateY(-10px) rotate(0deg);
+      box-shadow: -10px 18px 40px rgba(2,43,109,0.14);
+    }
+
+    .scene:hover .card-item:hover::before {
+      opacity: 1;
+    }
+
+    /* ── Card internals ── */
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .card-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 11px;
+      color: var(--slate);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(158,248,236,0.15);
+      color: var(--green);
+      border: 1px solid rgba(158,248,236,0.45);
+      align-self: flex-start;
+    }
+
+    .card-pill::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal2);
+    }
+
+    /* ── Hint ── */
+    .hint {
+      margin-top: 28px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--slate);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .hint svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.6;
+    }
+
+    /* hide hint once hovered */
+    .scene:hover ~ .hint {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .card-item {
+        transition: none !important;
+      }
+      .scene:not(:hover) .card-item {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <span class="badge-eyebrow">Link AI Suite</span>
+  <h1>Your AI marketing suite</h1>
+  <p class="subtitle">Intelligence across every channel — surfaced inside your portal, ready to act on.</p>
+
+  <div class="scene">
+
+    <!-- Card 1: Ads -->
+    <div class="card-item">
+      <div class="card-icon" style="background: rgba(2,43,109,0.07);">
+        <!-- Megaphone / target icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#022B6D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+        </svg>
+      </div>
+      <span class="card-label">AI Insights</span>
+      <div class="card-title">Ads</div>
+      <div class="card-desc">Google, Meta, and more — spend, ROAS, and creative fatigue flagged before they cost you.</div>
+      <span class="card-pill">Live</span>
+    </div>
+
+    <!-- Card 2: Socials -->
+    <div class="card-item">
+      <div class="card-icon" style="background: rgba(255,121,88,0.09);">
+        <!-- Share / network icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF7958" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+      </div>
+      <span class="card-label">AI Insights</span>
+      <div class="card-title">Socials</div>
+      <div class="card-desc">Engagement trends, follower growth, and post performance with AI-generated next steps.</div>
+      <span class="card-pill">Live</span>
+    </div>
+
+    <!-- Card 3: Blog & SEO -->
+    <div class="card-item">
+      <div class="card-icon" style="background: rgba(45,122,106,0.09);">
+        <!-- Search / content icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2d7a6a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          <line x1="8" y1="11" x2="14" y2="11"/>
+          <line x1="11" y1="8" x2="11" y2="14"/>
+        </svg>
+      </div>
+      <span class="card-label">AI Insights</span>
+      <div class="card-title">Blog & SEO</div>
+      <div class="card-desc">Keyword rankings, content gaps, and organic traffic summaries — built around your market.</div>
+      <span class="card-pill">Live</span>
+    </div>
+
+    <!-- Card 4: Circle Prospecting -->
+    <div class="card-item">
+      <div class="card-icon" style="background: rgba(90,233,215,0.14);">
+        <!-- Radar / concentric circles icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#022B6D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="2"/>
+          <path d="M16.24 7.76a6 6 0 010 8.49M7.76 16.24a6 6 0 010-8.49"/>
+          <path d="M19.07 4.93a10 10 0 010 14.14M4.93 19.07a10 10 0 010-14.14"/>
+        </svg>
+      </div>
+      <span class="card-label">AI Insights</span>
+      <div class="card-title">Circle Prospecting</div>
+      <div class="card-desc">Neighborhood outreach intel — contact activity, response rates, and next-best-action guidance.</div>
+      <span class="card-pill">Live</span>
+    </div>
+
+  </div>
+
+  <p class="hint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 11V6a2 2 0 00-2-2v0a2 2 0 00-2 2v0M14 10V4a2 2 0 00-2-2v0a2 2 0 00-2 2v0m0 0V5a2 2 0 00-2-2v0a2 2 0 00-2 2v3"/>
+      <path d="M6 10V8a2 2 0 00-2-2v0a2 2 0 00-2 2v7a8 8 0 008 8h2a8 8 0 008-8v-5"/>
+    </svg>
+    Hover to explore your tools
+  </p>
+
+</body>
+</html>

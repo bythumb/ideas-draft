@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Internal Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white:    #FFFFFF;
+    --teal:     #9EF8EC;
+    --offwhite: #F7F9FC;
+    --slate:    #9197AE;
+    --ink:      #2c2f3a;
+    --dark:     #022B6D;
+    --rule:     #e3e6ee;
+    --green:    #2d7a6a;
+    --danger:   #c0392b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--offwhite);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  .page-header {
+    background: var(--dark);
+    padding: 48px 28px 44px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), transparent 70%);
+  }
+  .page-eyebrow {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: 50px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(158,248,236,0.12);
+    color: var(--teal);
+    border: 1px solid rgba(158,248,236,0.25);
+    margin-bottom: 20px;
+  }
+  .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .page-sub {
+    font-size: 14px;
+    color: var(--slate);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 800px) { .tool-grid { grid-template-columns: 1fr; } }
+
+  .tool-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1.5px solid var(--rule);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .tool-card:hover {
+    border-color: var(--teal);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(2,43,109,0.1), 0 4px 12px rgba(158,248,236,0.15);
+  }
+
+  .tool-card-header {
+    padding: 28px 24px 20px;
+    position: relative;
+  }
+
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .tool-icon.onboarding {
+    background: rgba(2,43,109,0.08);
+    color: var(--dark);
+  }
+  .tool-icon.support {
+    background: rgba(158,248,236,0.2);
+    color: var(--green);
+  }
+  .tool-icon.marketing {
+    background: rgba(255,121,88,0.1);
+    color: #FF7958;
+  }
+
+  .tool-status {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+  .status-live .status-dot { background: var(--green); }
+  .status-live { color: var(--green); }
+  .status-dev .status-dot { background: #FF7958; }
+  .status-dev { color: #FF7958; }
+
+  .tool-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .tool-desc {
+    font-size: 12.5px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .tool-card-body {
+    padding: 0 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tool-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    flex: 1;
+  }
+  .tool-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 11.5px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .feat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .tool-card-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tool-url {
+    font-size: 11px;
+    color: var(--slate);
+    font-weight: 500;
+    font-family: 'Courier New', monospace;
+  }
+  .tool-arrow {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--offwhite);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--dark);
+    transition: all 0.2s;
+  }
+  .tool-card:hover .tool-arrow {
+    background: var(--teal);
+    color: var(--dark);
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 20px;
+    padding-left: 4px;
+  }
+
+  .flow-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .flow-label {
+    background: var(--white);
+    border: 1.5px solid var(--rule);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    padding: 0 10px;
+    font-size: 16px;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .page-header { padding: 36px 20px 32px; }
+    .page-title { font-size: 22px; }
+    .container { padding: 32px 16px 60px; }
+    .flow-bar { flex-direction: column; gap: 8px; }
+    .flow-arrow { transform: rotate(90deg); padding: 4px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-eyebrow">Internal tools</div>
+  <div class="page-title">Link Agent Platform</div>
+  <div class="page-sub">Everything your agents need from signup to campaign management, in one place.</div>
+</div>
+
+<div class="container">
+
+  <div class="flow-bar">
+    <div class="flow-step">
+      <div class="flow-label">Recruitment</div>
+      <div class="flow-arrow">&rarr;</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-label">Onboarding</div>
+      <div class="flow-arrow">&rarr;</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-label">Support Request</div>
+      <div class="flow-arrow">&rarr;</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-label">Marketing Suite</div>
+    </div>
+  </div>
+
+  <div class="section-label">Tools</div>
+
+  <div class="tool-grid">
+
+    <!-- ONBOARDING -->
+    <a href="https://onboarding.link.ai" target="_blank" class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-status status-live"><span class="status-dot"></span> Live</div>
+        <div class="tool-icon onboarding">1</div>
+        <div class="tool-name">General Onboarding</div>
+        <div class="tool-desc">Captures agent info and pushes to GHL to trigger document signing and payment collection.</div>
+      </div>
+      <div class="tool-card-body">
+        <ul class="tool-features">
+          <li><span class="feat-dot"></span>Contact info, license, association</li>
+          <li><span class="feat-dot"></span>Membership selection (Pro / Flex)</li>
+          <li><span class="feat-dot"></span>T-shirt size, email & website prefs</li>
+          <li><span class="feat-dot"></span>GHL webhook &rarr; contact creation</li>
+          <li><span class="feat-dot"></span>Post-submit payment link</li>
+        </ul>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-url">onboarding.link.ai</span>
+        <span class="tool-arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <!-- SUPPORT REQUEST -->
+    <a href="https://supportrequest.vercel.app" target="_blank" class="tool-card">
+      <div class="tool-card-header">
+        <div class="tool-status status-live"><span class="status-dot"></span> Live</div>
+        <div class="tool-icon support">2</div>
+        <div class="tool-name">Support Request</div>
+        <div class="tool-desc">Creative brief wizard for agents to request websites, marketing materials, and mentorship.</div>
+      </div>
+      <div class="tool-card-body">
+        <ul class="tool-features">
+          <li><span class="feat-dot"></span>Branching: Website / Marketing / Mentorship</li>
+          <li><span class="feat-dot"></span>Live preview panel with mockups</li>
+          <li><span class="feat-dot"></span>Print, drip, listing pres, lead gen</li>
+          <li><span class="feat-dot"></span>Compiled brief with copy/download</li>
+          <li><span class="feat-dot"></span>Submits to GHL + Google Sheet</li>
+        </ul>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-url">support.link.ai</span>
+        <span class="tool-arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <!-- MARKETING SUITE -->
+    <div class="tool-card" style="cursor: default;">
+      <div class="tool-card-header">
+        <div class="tool-status status-dev"><span class="status-dot"></span> In dev</div>
+        <div class="tool-icon marketing">3</div>
+        <div class="tool-name">Marketing Suite</div>
+        <div class="tool-desc">AI-powered ad management, copy generation, performance analysis, and weekly client briefs.</div>
+      </div>
+      <div class="tool-card-body">
+        <ul class="tool-features">
+          <li><span class="feat-dot"></span>Google Ads + Meta Ads integration</li>
+          <li><span class="feat-dot"></span>AI ad copywriter in client voice</li>
+          <li><span class="feat-dot"></span>GHL drip sequence generator</li>
+          <li><span class="feat-dot"></span>Performance audit reports</li>
+          <li><span class="feat-dot"></span>Weekly visual briefs</li>
+        </ul>
+      </div>
+      <div class="tool-card-footer">
+        <span class="tool-url">coming soon</span>
+        <span class="tool-arrow" style="opacity: 0.3;">&rarr;</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
